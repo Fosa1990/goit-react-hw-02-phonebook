@@ -80,7 +80,7 @@ class Form extends Component {
     const { name, number } = this.state;
 
     return (
-      <MainForm onSubmit={this.handleFormSubmit}>
+      <MainForm autocomplete="off" onSubmit={this.handleFormSubmit}>
         <FormLabel>
           Name
           <FormInput
