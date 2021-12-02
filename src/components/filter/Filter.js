@@ -7,19 +7,29 @@ const Label = styled.label`
 `;
 
 const Title = styled.p`
-  margin: 0;
+  margin: 5px 0;
+  color: var(--white);
   font-family: var(--font);
   font-size: 18px;
   line-height: 1.5;
 `;
+const Span = styled.span`
+  color: var(--yellow);
+`;
 
-const Input = styled.input``;
+const Input = styled.input`
+  color: var(--blue);
+`;
 
 const Filter = ({ value, onChange }) => (
-  <Label>
-    <Title>Find contacts by name</Title>
-    <Input type="search" name="search" value={value} onChange={onChange} />
-  </Label>
+  <>
+    <Label>
+      <Title>
+        Find contacts by <Span>name</Span>
+      </Title>
+      <Input type="search" name="search" value={value} onChange={onChange} />
+    </Label>
+  </>
 );
 
 export default Filter;

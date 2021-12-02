@@ -32,6 +32,9 @@ export class App extends Component {
     if (contacts.some(({ name }) => name === data.name)) {
       alert(`${data.name} is already in contacts!`);
       return false;
+    } else if (contacts.some(({ number }) => number === data.number)) {
+      alert(`${data.number} is already in contacts!`);
+      return false;
     } else return true;
   };
 
