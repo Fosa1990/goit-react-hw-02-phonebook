@@ -13,6 +13,7 @@ const Title = styled.p`
   font-size: 18px;
   line-height: 1.5;
 `;
+
 const Span = styled.span`
   color: var(--yellow);
 `;
