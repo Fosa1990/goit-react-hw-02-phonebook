@@ -4,27 +4,38 @@ import Form from './components/form';
 import Contacts from './components/contacts';
 import dataGenerator from './helpers/dataGenerator';
 import contactsData from './data/contacts.json';
+import { nanoid } from 'nanoid';
 
 import React, { Component } from 'react';
 
 export class App extends Component {
   state = {
     contacts: dataGenerator(contactsData),
-    name: '',
-    number: '',
   };
+
+  onSubmitHandler = data => {
+    data.id = nanoid();
+
+    this.setState(prevState => {
+      return {
+        contacts: [...prevState.contacts, data],
+      };
+    });
+  };
+
   render() {
+    const { contacts } = this.state;
     return (
       <>
         <Section title="Phonebook">
           <Container>
-            <Form />
+            <Form onSubmit={this.onSubmitHandler} />
           </Container>
         </Section>
 
         <Section title="Contacts">
           <Container>
-            <Contacts contacts={this.state.contacts} />
+            <Contacts contacts={contacts} />
           </Container>
         </Section>
       </>

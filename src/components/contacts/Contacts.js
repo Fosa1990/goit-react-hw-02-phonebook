@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const Title = styled.p`
@@ -14,22 +15,45 @@ const ListItem = styled.li`
   padding: 2px;
 `;
 
-const Contacts = ({ contacts }) => {
-  return (
-    <div>
-      <label htmlFor="search">
-        <Title>Find contacts by name</Title>
-        <input type="search" name="search" id="search" />
-      </label>
-      <ul>
-        {contacts.map(person => (
-          <ListItem key={person.id}>
-            {person.name} : {person.number}
-          </ListItem>
-        ))}
-      </ul>
-    </div>
-  );
-};
+export class Contacts extends Component {
+  state = {
+    contacts: this.props.contacts,
+    filter: '',
+  };
+
+  onHandleSearch = e => {
+    this.setState({
+      filter: e.currentTarget.value.toLowerCase(),
+    });
+  };
+
+  render() {
+    const { contacts } = this.state;
+    return (
+      <div>
+        <label htmlFor="search">
+          <Title>Find contacts by name</Title>
+          <input
+            type="search"
+            name="search"
+            id="search"
+            onChange={this.onHandleSearch}
+          />
+        </label>
+        <ul>
+          {contacts
+            .filter(person =>
+              person.name.toLowerCase().includes(this.state.filter),
+            )
+            .map(person => (
+              <ListItem key={person.id}>
+                {person.name} : {person.number}
+              </ListItem>
+            ))}
+        </ul>
+      </div>
+    );
+  }
+}
 
 export default Contacts;

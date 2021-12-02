@@ -27,6 +27,12 @@ const FromButton = styled.button`
   cursor: pointer;
   background-color: rgba(50, 50, 251, 0.719);
   border: 1px solid rgba(45, 45, 231, 0.596);
+
+  :disabled:hover {
+  cursor: not-allowed;
+  background-color: rgba(239, 239, 239, 0.3);
+  border: 1px solid rgba(199, 25, 25, 0.589);
+}
 `;
 
 const FormLabel = styled.label`
@@ -42,25 +48,38 @@ const FormInput = styled.input`
 
 class Form extends Component {
   state = {
-    contacts: [],
     name: '',
     number: '',
   };
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
+  handleChange = ({ currentTarget }) => {
+    const { name, value } = currentTarget;
     this.setState({ [name]: [value] });
-    console.log(`handleChange: Target: ${[name]}, Value: ${[value]}`);
+
+    console.log(`handleChange: cTarget: ${[name]}, value: ${[value]}`);
   };
 
   handleSubmit = evt => {
     evt.preventDefault();
+
     console.log(
       `handleSubmit: Name: ${this.state.name}, Number: ${this.state.number}`,
     );
+
+    this.props.onSubmit(this.state);
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState({
+      name: '',
+      number: '',
+    });
   };
 
   render() {
+    const { name, number } = this.state;
+
     return (
       <MainForm onSubmit={this.handleSubmit}>
         <FormLabel>
@@ -68,6 +87,7 @@ class Form extends Component {
           <FormInput
             type="text"
             name="name"
+            value={name}
             placeholder="Enter fullname"
             onChange={this.handleChange}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -81,6 +101,7 @@ class Form extends Component {
           <FormInput
             type="tel"
             name="number"
+            value={number}
             placeholder="Enter phone number"
             onChange={this.handleChange}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -89,7 +110,9 @@ class Form extends Component {
           />
         </FormLabel>
 
-        <FromButton type="submit">Add contact</FromButton>
+        <FromButton type="submit" disabled={name === '' || number === ''}>
+          Add contact
+        </FromButton>
       </MainForm>
     );
   }
