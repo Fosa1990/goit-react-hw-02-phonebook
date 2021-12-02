@@ -7,8 +7,10 @@ const SectionWrapper = styled.section`
 `;
 
 const SectionTitle = styled.h2`
+  color: var(--yellow);
   font-size: 32px;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--big);
+  text-align: center;
 `;
 
 const Section = ({ title, children }) => {

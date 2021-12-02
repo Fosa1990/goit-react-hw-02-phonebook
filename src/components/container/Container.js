@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const ContainerWrapper = styled.section`
+const ContainerWrapper = styled.div`
   padding: 0 10px;
   margin: 0 auto;
 `;

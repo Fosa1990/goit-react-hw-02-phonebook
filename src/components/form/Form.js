@@ -2,48 +2,53 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const MainForm = styled.form`
-  display: inline-flex;
-  width: 250px;
   padding: 5px;
-  margin: 5px;
-  flex-wrap: wrap;
-  font-family: 'Roboto', sans-serif;
+  margin: 0 auto;
+  width: 250px;
+  font-family: var(--font);
 `;
 
-const FromButton = styled.button`
-  margin-top: 25px;
+const FormAddContactButton = styled.button`
+  margin: 0;
+  width: 100%;
   border: 1px solid rgb(255, 252, 252);
   box-shadow: 0.7px 0.7px 0.75px rgb(173, 172, 172);
-  border-radius: 6px;
+  border-radius: 10px;
   background-color: rgb(245, 250, 245);
-  padding: 3px 10px 3px 10px;
+  padding: 5px 20px;
 
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font);
   font-size: 14px;
   font-weight: 600;
   transition: all 250ms ease-in;
 
   :hover {
-  cursor: pointer;
-  background-color: rgba(50, 50, 251, 0.719);
-  border: 1px solid rgba(45, 45, 231, 0.596);
+    cursor: pointer;
+    color: var(--white);
+    background-color: var(--green);
+    border: 1px solid var(--blue);
+  }
 
   :disabled:hover {
-  cursor: not-allowed;
-  background-color: rgba(239, 239, 239, 0.3);
-  border: 1px solid rgba(199, 25, 25, 0.589);
-}
+    cursor: not-allowed;
+    color: var(--red);
+    background-color: var(--white);
+    border: 1px solid var(--red);
+  }
 `;
 
 const FormLabel = styled.label`
   margin: 0 0 2px 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font);
   font-size: 18px;
   font-weight: 600;
 `;
 
 const FormInput = styled.input`
+  padding: 5px 20px;
   margin-bottom: 20px;
+  width: 100%;
+  border-radius: 10px;
 `;
 
 class Form extends Component {
@@ -52,25 +57,19 @@ class Form extends Component {
     number: '',
   };
 
-  handleChange = ({ currentTarget }) => {
-    const { name, value } = currentTarget;
-    this.setState({ [name]: [value] });
-
-    console.log(`handleChange: cTarget: ${[name]}, value: ${[value]}`);
+  handleInputChange = event => {
+    const { name, value } = event.currentTarget;
+    this.setState({ [name]: value });
   };
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-
-    console.log(
-      `handleSubmit: Name: ${this.state.name}, Number: ${this.state.number}`,
-    );
+  handleFormSubmit = event => {
+    event.preventDefault();
 
     this.props.onSubmit(this.state);
-    this.reset();
+    this.handleReset();
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       name: '',
       number: '',
@@ -81,7 +80,7 @@ class Form extends Component {
     const { name, number } = this.state;
 
     return (
-      <MainForm onSubmit={this.handleSubmit}>
+      <MainForm onSubmit={this.handleFormSubmit}>
         <FormLabel>
           Name
           <FormInput
@@ -89,7 +88,7 @@ class Form extends Component {
             name="name"
             value={name}
             placeholder="Enter fullname"
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
@@ -103,18 +102,24 @@ class Form extends Component {
             name="number"
             value={number}
             placeholder="Enter phone number"
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
+            minLength="7"
+            maxLength="9"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
         </FormLabel>
 
-        <FromButton type="submit" disabled={name === '' || number === ''}>
+        <FormAddContactButton
+          type="submit"
+          disabled={name === '' || number === ''}
+        >
           Add contact
-        </FromButton>
+        </FormAddContactButton>
       </MainForm>
     );
   }
 }
+
 export default Form;
