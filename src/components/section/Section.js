@@ -22,6 +22,10 @@ const Section = ({ title, children }) => {
   );
 };
 
+Section.defaultProps = {
+  title: 'Section title',
+};
+
 Section.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
