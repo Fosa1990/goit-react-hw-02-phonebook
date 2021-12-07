@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Label = styled.label`
   display: flex;
@@ -32,5 +33,10 @@ const Filter = ({ value, onChange }) => (
     </Label>
   </>
 );
+
+Filter.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Filter;
