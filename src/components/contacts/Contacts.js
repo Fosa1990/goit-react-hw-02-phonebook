@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ListItem = styled.li`
   position: relative;
@@ -60,6 +61,11 @@ const Contacts = ({ contacts, onDeleteButtonClick }) => {
       ))}
     </ul>
   );
+};
+
+Contacts.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.object),
+  onDeleteBtnClick: PropTypes.func.isRequired,
 };
 
 export default Contacts;
