@@ -1,6 +1,29 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+const Contacts = ({ contacts, onDeleteButtonClick }) => {
+  return (
+    <ul>
+      {contacts.map(person => (
+        <ListItem key={person.id}>
+          {person.name} : {person.number}
+          <ButtonDelete
+            type="button"
+            onClick={() => onDeleteButtonClick(person.id)}
+          >
+            Delete
+          </ButtonDelete>
+        </ListItem>
+      ))}
+    </ul>
+  );
+};
+
+Contacts.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.object),
+  onDeleteButtonClick: PropTypes.func.isRequired,
+};
+
 const ListItem = styled.li`
   position: relative;
   display: flex;
@@ -44,28 +67,5 @@ const ButtonDelete = styled.button`
     border: 1px solid var(--dark);
   }
 `;
-
-const Contacts = ({ contacts, onDeleteButtonClick }) => {
-  return (
-    <ul>
-      {contacts.map(person => (
-        <ListItem key={person.id}>
-          {person.name} : {person.number}
-          <ButtonDelete
-            type="button"
-            onClick={() => onDeleteButtonClick(person.id)}
-          >
-            Delete
-          </ButtonDelete>
-        </ListItem>
-      ))}
-    </ul>
-  );
-};
-
-Contacts.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object),
-  onDeleteButtonClick: PropTypes.func.isRequired,
-};
 
 export default Contacts;

@@ -1,5 +1,22 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Fragment } from 'react';
+
+const Filter = ({ value, onChange }) => (
+  <Fragment>
+    <Label>
+      <Title>
+        Find contacts by <Span>name</Span>
+      </Title>
+      <Input type="search" name="search" value={value} onChange={onChange} />
+    </Label>
+  </Fragment>
+);
+
+Filter.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+};
 
 const Label = styled.label`
   display: flex;
@@ -22,21 +39,5 @@ const Span = styled.span`
 const Input = styled.input`
   color: var(--blue);
 `;
-
-const Filter = ({ value, onChange }) => (
-  <>
-    <Label>
-      <Title>
-        Find contacts by <Span>name</Span>
-      </Title>
-      <Input type="search" name="search" value={value} onChange={onChange} />
-    </Label>
-  </>
-);
-
-Filter.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-};
 
 export default Filter;

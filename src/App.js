@@ -1,3 +1,4 @@
+import React, { Component, Fragment } from 'react';
 import Section from './components/section';
 import Container from './components/container';
 import Form from './components/form';
@@ -6,8 +7,6 @@ import Filter from './components/filter';
 import dataGenerator from './helpers/dataGenerator';
 import contactsData from './data/contacts.json';
 import { nanoid } from 'nanoid';
-
-import React, { Component } from 'react';
 
 export class App extends Component {
   state = {
@@ -63,7 +62,7 @@ export class App extends Component {
     const filteredContacts = this.getFiltredContacts();
 
     return (
-      <>
+      <Fragment>
         <Section title="Phonebook">
           <Container>
             <Form onSubmit={this.formSubmitHandler} />
@@ -79,7 +78,7 @@ export class App extends Component {
             />
           </Container>
         </Section>
-      </>
+      </Fragment>
     );
   }
 }
